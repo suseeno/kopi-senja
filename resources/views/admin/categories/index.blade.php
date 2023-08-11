@@ -10,14 +10,14 @@
 				<h2>Listing Categories</h2>
 
 				<a href="{{route('categories.create')}}" class="btn btn-outline-primary btn-sm text-uppercase">
-					<i class=" mdi mdi-link mr-1"></i> Create
+					<i class=" mdi mdi-plus mr-1"></i> Create
 				</a>
 			</div>
 
 			<div class="card-body">
 			@include('admin.partials.flash', ['$errors' => $errors])
 				<div class="basic-data-table">
-                <table class="table nowrap" style="width:100%">
+				<table id="basic-data-table" class="table table-hover nowrap" style="width:100%">
 						<thead>
 							<tr>
 								<th>id</th>
@@ -36,7 +36,7 @@
 								<td>{{$category->id}}</td>
 								<td>{{$category->name}}</td>
 								<td>{{$category->slug}}</td>
-								<td>{{$category->parent_id}}</td>
+								<td>{{$category->parent ? $category->parent->name : ''}}</td>
 								<td>
                                             <a href="{{ url('admin/categories/'. $category->id .'/edit') }}" class="btn btn-outline-warning btn-sm text-uppercase">edit</a>
                                             
@@ -52,14 +52,16 @@
 						</tbody>
 					</table>
 
-					{{$categories->links()}}
 					@include('sweetalert::alert')
-					<script src="https://unpkg.com/feather-icons"></script>
-					<script>
-								
-				feather.replace()
-				</script>
-					
+					<script class="text/javascript">
+
+					jQuery(document).ready(function() {
+					jQuery('#basic-data-table').DataTable({
+					"dom": '&lt;"row justify-content-between top-information"lf&gt;rt&lt;"row justify-content-between bottom-information"ip>&lt;"clear"&gt;'
+					});
+					});
+					</script>
+				
 				</div>
 			</div>
 		</div>

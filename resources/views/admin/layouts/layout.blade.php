@@ -535,13 +535,11 @@
                   <!-- User Account -->
                   <li class="dropdown user-menu">
                     <button href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                      <img src="assets/img/user/user.png" class="user-image" alt="User Image" />
-                      <span class="d-none d-lg-inline-block">Abdus Salam</span>
+                      <span class="d-none d-lg-inline-block">Admin</span>
                     </button>
                     <ul class="dropdown-menu dropdown-menu-right">
                       <!-- User image -->
                       <li class="dropdown-header">
-                        <img src="assets/img/user/user.png" class="img-circle" alt="User Image" />
                         <div class="d-inline-block">
                           Abdus Salam <small class="pt-1">iamabdus@gmail.com</small>
                         </div>
@@ -587,6 +585,12 @@
     
     <!-- Footer -->
    @include('admin.partials.footer')
+
+   <script>
+    $(".delete").on("submit",function(){
+      return confirm("Do You Want Remove This?");
+    });
+   </script>
 </body>
 </html>
 

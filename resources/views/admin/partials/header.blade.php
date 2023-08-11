@@ -23,7 +23,7 @@
     
     <!-- Data Table -->
     <link href="{{asset('admin/assets/plugins/data-tables/datatables.bootstrap4.min.css')}}" rel="stylesheet">
-
+    
     <link href="{{asset('admin/assets/plugins/toastr/toastr.min.css')}}"rel='stylesheet'>
     
     <!-- SLEEK CSS -->

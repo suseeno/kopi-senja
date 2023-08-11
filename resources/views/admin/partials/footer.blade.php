@@ -39,6 +39,7 @@
     <script src="{{asset('admin/assets/js/sleek.js')}}"></script>
   <link href="{{asset('admin/assets/options/optionswitch.css')}}" rel="stylesheet">
 <script src="{{asset('admin/assets/options/optionswitcher.js')}}"></script>
+<!-- <script src="{{asset('admin/assets/plugins/data-tables/jquery.datatables.min.js')}}"></script>
+<script src="{{asset('admin/assets/plugins/data-tables/datatables.bootstrap4.min.js')}}"></script> -->
 <script src="{{asset('admin/assets/plugins/data-tables/jquery.datatables.min.js')}}"></script>
 <script src="{{asset('admin/assets/plugins/data-tables/datatables.bootstrap4.min.js')}}"></script>
-<script src="https://unpkg.com/feather-icons"></script>
