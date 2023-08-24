@@ -14,8 +14,16 @@
 Route::get('/', function () {
     return view('welcome');
 });
+// Backend Routing
+Route::group(
+    ['namespace' => 'Admin', 'prefix' => 'admin', 'middleware' => ['auth']],
+    function () {
+        Route::get('dasboard', 'DasboardController@index')->name('dasboard');
+        Route::resource('categories', CategoriesController::class);
+        Route::resource('product', productController::class);
+    }
+);
 
-Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function () {
-    Route::get('dasboard', 'DasboardController@index')->name('dasboard');
-    Route::resource('categories', CategoriesController::class);
-});
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

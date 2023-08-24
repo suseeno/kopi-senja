@@ -7,9 +7,9 @@
     <div class="col-12">
     <div class="card card-default">
 			<div class="card-header card-header-border-bottom d-flex justify-content-between">
-				<h2>Listing Categories</h2>
+				<h2>Listing Product</h2>
 
-				<a href="{{route('categories.create')}}" class="btn btn-outline-primary btn-sm text-uppercase">
+				<a href="{{route('product.create')}}" class="btn btn-outline-primary btn-sm text-uppercase">
 					<i class=" mdi mdi-link mr-1"></i> Create
 				</a>
 			</div>
@@ -21,33 +21,35 @@
 						<thead>
 							<tr>
 								<th>id</th>
+								<th>Sku</th>
+								
 								<th>Name</th>
-								<th>Slug</th>
-								<th>parent</th>
+                                <th>price</th>
+                                <th>status</th>
 								<th>Action</th>
 								
 							</tr>
 						</thead>
 
 						<tbody>
-							
-							@foreach($categories as $category)
+							@foreach($product as $prod)
 							<tr>
-								<td>{{$category->id}}</td>
-								<td>{{$category->name}}</td>
-								<td>{{$category->slug}}</td>
-								<td>{{$category->parent ? $category->parent->name : ''}}</td>
+                                <td>{{$prod->id}}</td>
+                                <td>{{$prod->sku}}</td>
+                                <td>{{$prod->name}}</td>
+                                <td>{{$prod->price}}</td>
+                                <td>{{$prod->status}}</td>
+							
 								<td>
-                                            <a href="{{ url('admin/categories/'. $category->id .'/edit') }}" class="btn btn-outline-warning btn-sm text-uppercase">edit</a>
+                                            <a href="{{ url('admin/product/'. $prod->id .'/edit') }}" class="btn btn-outline-warning btn-sm text-uppercase">edit</a>
                                             
-                                            {!! Form::open(['url' => 'admin/categories/'. $category->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
+                                            {!! Form::open(['url' => 'admin/product/'. $prod->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                                             {!! Form::hidden('_method', 'DELETE') !!}
                                             {!! Form::submit('remove', ['class' => 'btn btn-outline-danger btn-sm ']) !!}
                                             {!! Form::close() !!}
                                         </td>
 								
-							</tr>
-
+                            </tr>
 							@endforeach
 						</tbody>
 					</table>
