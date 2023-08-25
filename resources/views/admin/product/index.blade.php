@@ -7,63 +7,61 @@
     <div class="col-12">
     <div class="card card-default">
 			<div class="card-header card-header-border-bottom d-flex justify-content-between">
-				<h2>Listing Categories</h2>
+				<h2>Listing Product</h2>
 
-				<a href="{{route('categories.create')}}" class="btn btn-outline-primary btn-sm text-uppercase">
-					<i class=" mdi mdi-plus mr-1"></i> Create
+				<a href="{{route('product.create')}}" class="btn btn-outline-primary btn-sm text-uppercase">
+					<i class=" mdi mdi-link mr-1"></i> Create
 				</a>
 			</div>
 
 			<div class="card-body">
 			@include('admin.partials.flash', ['$errors' => $errors])
 				<div class="basic-data-table">
-
                 <table id="basic-data-table" class="table nowrap" style="width:100%">
-
 						<thead>
 							<tr>
 								<th>id</th>
+								<th>Sku</th>
+								
 								<th>Name</th>
-								<th>Slug</th>
-								<th>parent</th>
+                                <th>price</th>
+                                <th>status</th>
 								<th>Action</th>
 								
 							</tr>
 						</thead>
 
 						<tbody>
-							
-							@foreach($categories as $category)
+							@foreach($product as $prod)
 							<tr>
-								<td>{{$category->id}}</td>
-								<td>{{$category->name}}</td>
-								<td>{{$category->slug}}</td>
-								<td>{{$category->parent ? $category->parent->name : ''}}</td>
+                                <td>{{$prod->id}}</td>
+                                <td>{{$prod->sku}}</td>
+                                <td>{{$prod->name}}</td>
+                                <td>{{$prod->price}}</td>
+                                <td>{{$prod->status}}</td>
+							
 								<td>
-                                            <a href="{{ url('admin/categories/'. $category->id .'/edit') }}" class="btn btn-outline-warning btn-sm text-uppercase">edit</a>
+                                            <a href="{{ url('admin/product/'. $prod->id .'/edit') }}" class="btn btn-outline-warning btn-sm text-uppercase">edit</a>
                                             
-                                            {!! Form::open(['url' => 'admin/categories/'. $category->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
+                                            {!! Form::open(['url' => 'admin/product/'. $prod->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                                             {!! Form::hidden('_method', 'DELETE') !!}
                                             {!! Form::submit('remove', ['class' => 'btn btn-outline-danger btn-sm ']) !!}
                                             {!! Form::close() !!}
                                         </td>
 								
-							</tr>
-
+                            </tr>
 							@endforeach
 						</tbody>
 					</table>
 
+					
 					@include('sweetalert::alert')
-					<script class="text/javascript">
-
-					jQuery(document).ready(function() {
-					jQuery('#basic-data-table').DataTable({
-					"dom": '&lt;"row justify-content-between top-information"lf&gt;rt&lt;"row justify-content-between bottom-information"ip>&lt;"clear"&gt;'
-					});
-					});
-					</script>
-				
+					<script src="https://unpkg.com/feather-icons"></script>
+					<script>
+								
+				feather.replace()
+				</script>
+					
 				</div>
 			</div>
 		</div>

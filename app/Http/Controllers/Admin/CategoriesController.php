@@ -31,9 +31,11 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        $categories= Category::orderBy('name','ASC')->get();
-        $this->data['categories'] =$categories->toArray();
-        $this->data['category'] =null;
+
+        $categories = Category::orderBy('name', 'ASC')->get();
+        $this->data['categories'] = $categories->toArray();
+        $this->data['category'] = null;
+
         return view('admin.categories.form', $this->data);
     }
 
@@ -76,7 +78,6 @@ class CategoriesController extends Controller
     {
         $category = Category::findOrFail($id);
         $categories = Category::orderBy('name', 'asc')->get();
-
         $this->data['categories'] = $categories->toArray();
         $this->data['category'] = $category;
         return view('admin.categories.form', $this->data);
@@ -93,7 +94,6 @@ class CategoriesController extends Controller
     {
         $params = $request->except('_token');
         $params['slug'] = Str::slug($params['name']);
-
         $category = Category::findOrFail($id);
         if ($category->update($params)) {
             Session::flash('success', 'Category has been updated.');
