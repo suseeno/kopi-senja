@@ -45,7 +45,7 @@
                                             
                                             {!! Form::open(['url' => 'admin/product/'. $prod->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                                             {!! Form::hidden('_method', 'DELETE') !!}
-                                            {!! Form::submit('remove', ['class' => 'btn btn-outline-danger btn-sm ']) !!}
+                                            {!! Form::submit('remove', ['class' => 'btn btn-outline-danger btn-sm ','onclick'=>'return confirm("Are You Sure  Want To Remove?")']) !!}
                                             {!! Form::close() !!}
                                         </td>
 								

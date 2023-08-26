@@ -11,19 +11,21 @@ class Product extends Model
         'sku',
         'name',
         'slug',
-        'height',
-        'length',
         'price',
-        'width',
         'weight',
-        'status',
+        'length',
+        'width',
+        'height',
         'short_description',
         'description',
+        'status',
     ];
+
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo('App\Models\User');
     }
+
     public function categories()
     {
         return $this->belongsToMany(
@@ -32,12 +34,17 @@ class Product extends Model
         );
     }
 
+    public function productImages()
+    {
+        return $this->hasMany('App\Models\ProductImage');
+    }
+
     public static function statuses()
     {
         return [
             0 => 'draft',
             1 => 'active',
-            2 => 'InActive',
+            2 => 'inactive',
         ];
     }
 }

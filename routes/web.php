@@ -21,6 +21,19 @@ Route::group(
         Route::get('dasboard', 'DasboardController@index')->name('dasboard');
         Route::resource('categories', CategoriesController::class);
         Route::resource('product', productController::class);
+        Route::get('product/{productID}/images', 'ProductController@images');
+        Route::get(
+            'products/{productID}/add-image',
+            'ProductController@addImage'
+        )->name('product.add_image');
+        Route::post(
+            'product/images/{productID}',
+            'ProductController@upload_images'
+        )->name('product.upload_images');
+        Route::delete(
+            'product/images/{productID}',
+            'ProductController@remove_images'
+        )->name('product.remove_images');
     }
 );
 
