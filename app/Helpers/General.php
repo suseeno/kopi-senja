@@ -10,9 +10,11 @@ class General
             $class_form = $options['class'];
         }
 
-        $selected = '';
+        $selected = [];
         if (!empty($options['selected'])) {
-            $selected = $options['selected'];
+            $selected = is_array($options['selected'])
+                ? $options['selected']
+                : [$options['selected']];
         }
 
         if (!empty($options['placeholder'])) {
@@ -28,6 +30,7 @@ class General
         if (!empty($options['multiple'])) {
             $multiple = 'multiple';
         }
+
         $select =
             '<select class="' .
             $class_form .
@@ -46,7 +49,7 @@ class General
         $array,
         $parent_id = 0,
         $parents = [],
-        $selected = null,
+        $selected = [],
         $placeholder = null
     ) {
         if ($placeholder != null) {
@@ -73,7 +76,7 @@ class General
         foreach ($array as $element) {
             $selected_item = '';
             if ($element['parent_id'] == $parent_id) {
-                if ($element['id'] == $selected) {
+                if (in_array($element['id'], $selected)) {
                     $selected_item = 'selected';
                 }
                 $menu_html .=

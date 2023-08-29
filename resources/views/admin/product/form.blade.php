@@ -8,7 +8,10 @@
 
 <div class="content">
     <div class="row">
-        <div class="col-lg-10">
+    <div class="col-lg-4">
+        @include('admin.product.product_menu')
+    </div>
+        <div class="col-lg-8">
             <div class="card card-default">
                 <div class="card-header card-header-border-bottom">
                         <h2>{{ $formTitle }} Product</h2>
