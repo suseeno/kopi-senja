@@ -3,11 +3,20 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Attribute;
-use Illuminate\Http\Request;
+use App\Models\Attribute;
+use App\Models\AttributesOption;
+use App\Http\Requests\AttributesRequest;
+
+use Session;
 
 class AttributesController extends Controller
 {
+    public function __construct()
+    {
+        $this->data['types'] = Attribute::types();
+        $this->data['booleanOptions'] = Attribute::booleanOptions();
+        $this->data['validations'] = Attribute::validations();
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +24,8 @@ class AttributesController extends Controller
      */
     public function index()
     {
-  
-        return view('admin.attribute.index',$this->data);
+        $this->data['attributes'] = Attribute::all();
+        return view('admin.attribute.index', $this->data);
     }
 
     /**
@@ -26,7 +35,8 @@ class AttributesController extends Controller
      */
     public function create()
     {
-        return view('admin.attribute.form',$this->data);
+        $this->data['attribute'] = null;
+        return view('admin.attribute.form', $this->data);
     }
 
     /**
@@ -35,9 +45,18 @@ class AttributesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AttributesRequest $request)
     {
-        //
+        $params = $request->except('_token');
+        $params['is_required'] = (bool) $params['is_required'];
+        $params['is_unique'] = (bool) $params['is_unique'];
+        $params['is_configurable'] = (bool) $params['is_configurable'];
+        $params['is_filterable'] = (bool) $params['is_filterable'];
+
+        if (Attribute::create($params)) {
+            Session::flash('success', 'Attribute Has been Saved');
+            return redirect('admin/attributes');
+        }
     }
 
     /**
@@ -59,7 +78,9 @@ class AttributesController extends Controller
      */
     public function edit($id)
     {
-        //
+        $attribute = Attribute::findOrFail($id);
+        $this->data['attribute'] = $attribute;
+        return view('admin.attribute.form', $this->data);
     }
 
     /**
@@ -69,9 +90,23 @@ class AttributesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AttributesRequest $request, $id)
     {
-        //
+        $params = $request->except('_token');
+        $params['is_required'] = (bool) $params['is_required'];
+        $params['is_unique'] = (bool) $params['is_unique'];
+        $params['is_configurable'] = (bool) $params['is_configurable'];
+        $params['is_filterable'] = (bool) $params['is_filterable'];
+
+        unset($params['code']);
+        unset($params['type']);
+
+        $attributes = Attribute::findOrFail($id);
+
+        if ($attributes->update($params)) {
+            Session::flash('success', 'Attributes has Been Updated');
+            return redirect('admin/attributes');
+        }
     }
 
     /**
@@ -82,6 +117,19 @@ class AttributesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $attributes = Attribute::findOrFail($id);
+        if ($attributes->delete($attributes)) {
+            Session::flash('succes', 'Attribute has been deleted');
+            return redirect('admin/attributes');
+        }
+    }
+    public function options($attributeID)
+    {
+        if (!empty($attributeID)) {
+            return redirect('admin/attributes');
+        }
+        $attributes = Attribute::findOrFail($attributeID);
+        $this->data['attributes'] = $attributes;
+        return view('admin.attribute.options', $this->data);
     }
 }

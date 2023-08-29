@@ -30,21 +30,23 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @foreach($attributes as $attr)
                                 <tr>
-                                    <td>1</td>
-                                    <td>B3245a</td>
-                                    <td>Dummy web</td>
-                                    <td>active</td>
+                                    <td>{{$attr->id}}</td>
+                                    <td>{{$attr->code}}</td>
+                                    <td>{{$attr->name}}</td>
+                                    <td>{{$attr->type}}</td>
                                     <td>
-                                        <a href="" class="btn btn-outline-warning">edit</a>
-                                        <a href="" class="btn btn-outline-success">Options</a>
+                                            <a href="{{ url('admin/attributes/'. $attr->id .'/edit') }}" class="btn btn-outline-warning  text-uppercase">edit</a>
+                                        <a href="{{url('admin/attributes/'. $attr->id .'/option')}}" class="btn btn-outline-success">Options</a>
 
-                                        {!! Form::open(['url' => '', 'class' => 'delete', 'style' => 'display:inline-block']) !!}
+                                            {!! Form::open(['url' => 'admin/attributes/'. $attr->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                                             {!! Form::hidden('_method', 'DELETE') !!}
                                             {!! Form::submit('Delete', ['class' => 'btn btn-outline-danger','icon'=> 'mdi mdi delete','onclick'=>'return confirm("Are You Sure  Want To Remove?")']) !!}
                                             {!! Form::close() !!}                                 
                                            </td>
                                 </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
