@@ -21,6 +21,7 @@ Route::group(
         Route::get('dasboard', 'DasboardController@index')->name('dasboard');
         Route::resource('categories', CategoriesController::class);
         Route::resource('product', productController::class);
+        Route::resource('attributes',AttributesController ::class);
         Route::get('product/{productID}/images', 'ProductController@images');
         Route::get(
             'products/{productID}/add-image',

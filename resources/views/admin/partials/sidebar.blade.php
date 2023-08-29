@@ -15,13 +15,21 @@
                       </li>
 
                       <li class="">
-                        <a class="sidenav-item-link" href="{{route('product.index')}}">
+                        <a class="sidenav-item-link" href="{{url('admin/product')}}">
+                          
                           <span class="nav-text">Product</span>
                           
                         </a>
                       </li>
+                      <li class="">
+                        <a class="sidenav-item-link" href="{{url('admin/attributes')}}">
+                          <span class="nav-text">Attributes</span>
+                        </a>
+                      </li>
+                      </li>
+
                     </div>
-                  </ul>
+                    </ul>
                 </li>
 
                 <li class="has-sub ">

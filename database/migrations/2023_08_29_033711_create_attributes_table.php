@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropProductImageTable extends Migration
+class CreateAttributesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,12 @@ class DropProductImageTable extends Migration
      */
     public function up()
     {
-        schema::drop('product_image');
+        Schema::create('attributes', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->string('code');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +28,6 @@ class DropProductImageTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('attributes');
     }
 }

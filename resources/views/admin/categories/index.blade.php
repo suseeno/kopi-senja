@@ -10,7 +10,7 @@
 				<h2>Listing Categories</h2>
 
 				<a href="{{route('categories.create')}}" class="btn btn-outline-primary btn-sm text-uppercase">
-					<i class=" mdi mdi-link mr-1"></i> Create
+					<i class=" mdi mdi-plus mr-1"></i> Create
 				</a>
 			</div>
 
@@ -38,11 +38,11 @@
 								<td>{{$category->slug}}</td>
 								<td>{{$category->parent ? $category->parent->name : ''}}</td>
 								<td>
-                                            <a href="{{ url('admin/categories/'. $category->id .'/edit') }}" class="btn btn-outline-warning btn-sm text-uppercase">Edit</a>
+                                            <a href="{{ url('admin/categories/'. $category->id .'/edit') }}" class="btn btn-outline-warning  text-uppercase">Edit</a>
                                             
                                             {!! Form::open(['url' => 'admin/categories/'. $category->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                                             {!! Form::hidden('_method', 'DELETE') !!}
-                                            {!! Form::submit('remove', ['class' => 'btn btn-outline-danger btn-sm ','onclick'=>'return confirm("Are You Sure  Want To Remove?")']) !!}
+                                            {!! Form::submit('Delete', ['class' => 'btn btn-outline-danger','icon'=> 'mdi mdi delete','onclick'=>'return confirm("Are You Sure  Want To Remove?")']) !!}
                                             {!! Form::close() !!}
                                         </td>
 								
