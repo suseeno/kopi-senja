@@ -38,8 +38,10 @@
                                     <td>{{$attr->type}}</td>
                                     <td>
                                             <a href="{{ url('admin/attributes/'. $attr->id .'/edit') }}" class="btn btn-outline-warning  text-uppercase">edit</a>
-                                        <a href="{{url('admin/attributes/'. $attr->id .'/option')}}" class="btn btn-outline-success">Options</a>
-
+                                            
+                                            <a href="{{url('admin/attributes/'. $attr->id .'/options')}}" class="btn btn-outline-success">Options</a>
+                                        
+                                          
                                             {!! Form::open(['url' => 'admin/attributes/'. $attr->id, 'class' => 'delete', 'style' => 'display:inline-block']) !!}
                                             {!! Form::hidden('_method', 'DELETE') !!}
                                             {!! Form::submit('Delete', ['class' => 'btn btn-outline-danger','icon'=> 'mdi mdi delete','onclick'=>'return confirm("Are You Sure  Want To Remove?")']) !!}

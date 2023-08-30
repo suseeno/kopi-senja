@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class AttributesOption extends Model
 {
-    protected $fillable = ['attributes_id', 'name'];
+    protected $fillable = ['attribute_id', 'name'];
 
     public function attributes()
     {
-        return $this->belongsTo('App\Models\Attributes');
+        return $this->belongsTo('App\Models\Attribute');
     }
 }

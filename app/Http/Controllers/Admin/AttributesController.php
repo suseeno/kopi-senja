@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+
+use App\Http\Requests\AttributesRequest;
+use App\Http\Requests\AttributesOptionRequest;
+
 use App\Models\Attribute;
 use App\Models\AttributesOption;
-use App\Http\Requests\AttributesRequest;
+use RealRashid\SweetAlert\Facades\Alert;
 
 use Session;
 
@@ -24,7 +28,8 @@ class AttributesController extends Controller
      */
     public function index()
     {
-        $this->data['attributes'] = Attribute::all();
+        $this->data['attributes'] = Attribute::orderBy('name', 'ASC')->paginate(10);
+
         return view('admin.attribute.index', $this->data);
     }
 
@@ -36,6 +41,7 @@ class AttributesController extends Controller
     public function create()
     {
         $this->data['attribute'] = null;
+        
         return view('admin.attribute.form', $this->data);
     }
 
@@ -54,9 +60,10 @@ class AttributesController extends Controller
         $params['is_filterable'] = (bool) $params['is_filterable'];
 
         if (Attribute::create($params)) {
-            Session::flash('success', 'Attribute Has been Saved');
-            return redirect('admin/attributes');
+            Session::flash('success', 'Attribute has been saved');
         }
+
+        return redirect('admin/attributes');
     }
 
     /**
@@ -79,7 +86,9 @@ class AttributesController extends Controller
     public function edit($id)
     {
         $attribute = Attribute::findOrFail($id);
+
         $this->data['attribute'] = $attribute;
+        
         return view('admin.attribute.form', $this->data);
     }
 
@@ -101,12 +110,13 @@ class AttributesController extends Controller
         unset($params['code']);
         unset($params['type']);
 
-        $attributes = Attribute::findOrFail($id);
+        $attribute = Attribute::findOrFail($id);
 
-        if ($attributes->update($params)) {
-            Session::flash('success', 'Attributes has Been Updated');
-            return redirect('admin/attributes');
+        if ($attribute->update($params)) {
+            Session::flash('success', 'Attribute has been Updated');
         }
+
+        return redirect('admin/attributes');
     }
 
     /**
@@ -117,19 +127,79 @@ class AttributesController extends Controller
      */
     public function destroy($id)
     {
-        $attributes = Attribute::findOrFail($id);
-        if ($attributes->delete($attributes)) {
-            Session::flash('succes', 'Attribute has been deleted');
-            return redirect('admin/attributes');
+        $attribute = Attribute::findOrFail($id);
+
+        if ($attribute->delete()) {
+            Session::flash('success', 'Attribute has been deleted');
         }
+
+        return redirect('admin/attributes');
     }
-    public function options($attributeID)
+
+    public function option($attributeID)
     {
-        if (!empty($attributeID)) {
+        if (empty($attributeID)) {
             return redirect('admin/attributes');
         }
-        $attributes = Attribute::findOrFail($attributeID);
-        $this->data['attributes'] = $attributes;
+
+        $attribute = Attribute::findOrFail($attributeID);
+        $this->data['attribute'] = $attribute;
+
         return view('admin.attribute.options', $this->data);
+    }
+
+    public function store_option(AttributesOptionRequest $request, $attributeID)
+    {
+        if (empty($attributeID)) {
+            return redirect('admin/attributes');
+        }
+        
+        $params = [
+            'attributes_id' => $attributeID,
+            'name' => $request->get('name'),
+        ];
+
+        if (AttributesOption::create($params)) {
+            Session::flash('success', 'option has been saved');
+        }
+
+        return redirect('admin/attributes/'. $attributeID .'/options');
+    }
+
+    public function edit_option($optionID)
+    {
+        $option = AttributesOption::findOrFail($optionID);
+
+        $this->data['attributeOption'] = $option;
+        $this->data['attribute'] = $option->attribute;
+
+        return view('admin.attributes.options', $this->data);
+    }
+
+    public function update_option(AttributesOptionRequest $request, $optionID)
+    {
+        $option = AttributesOption::findOrFail($optionID);
+        $params = $request->except('_token');
+
+        if ($option->update($params)) {
+            Session::flash('success', 'Option has been updated');
+        }
+
+        return redirect('admin/attributes/'. $option->attribute->id .'/options');
+    }
+
+    public function remove_option($optionID)
+    {
+        if (empty($optionID)) {
+            return redirect('admin/attributes');
+        }
+
+        $option = AttributeOption::findOrFail($optionID);
+
+        if ($option->delete()) {
+            Session::flash('success', 'option has been deleted');
+        }
+
+        return redirect('admin/attributes/'. $option->attribute->id .'/options');
     }
 }

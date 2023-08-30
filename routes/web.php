@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -20,8 +23,15 @@ Route::group(
     function () {
         Route::get('dasboard', 'DasboardController@index')->name('dasboard');
         Route::resource('categories', CategoriesController::class);
-        Route::resource('product', productController::class);
+    // attributes
         Route::resource('attributes',AttributesController ::class);
+        Route::get('attributes/{attributesID}/options', 'AttributesController@option');
+        Route::get('attributes/{attributesID}/add-option', 'AttributesController@add_option');
+        Route::post('attributes/options/{attributesID}', 'AttributesController@store_option');
+
+            // product
+
+        Route::resource('product', productController::class);
         Route::get('product/{productID}/images', 'ProductController@images');
         Route::get(
             'products/{productID}/add-image',
@@ -36,6 +46,7 @@ Route::group(
             'ProductController@remove_images'
         )->name('product.remove_images');
     }
+
 );
 
 Auth::routes();
