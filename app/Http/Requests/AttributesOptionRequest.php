@@ -23,13 +23,19 @@ class AttributesOptionRequest extends FormRequest
      */
     public function rules()
     {
-        $attributeID = (int) $this->get('attribute_id');
+        $attributeID = (int) $this->get('attributes_id');
         $id = (int) $this->get('id');
 
         if ($this->method() == 'PUT') {
-            $name = 'required|unique:attribute_options,name,'.$id.',id,attribute_id,'.$attributeID;
+            $name =
+                'required|unique:attributes_options,name,' .
+                $id .
+                ',id,attributes_id,' .
+                $attributeID;
         } else {
-            $name = 'required|unique:attribute_options,name,NULL,id,attribute_id,'.$attributeID;
+            $name =
+                'required|unique:attributes_options,name,NULL,id,attributes_id,' .
+                $attributeID;
         }
 
         return [

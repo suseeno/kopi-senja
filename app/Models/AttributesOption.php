@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AttributesOption extends Model
 {
-    protected $fillable = ['attribute_id', 'name'];
+    protected $fillable = ['attributes_id', 'name'];
 
     public function attributes()
     {

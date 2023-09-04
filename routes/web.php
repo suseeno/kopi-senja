@@ -23,13 +23,22 @@ Route::group(
     function () {
         Route::get('dasboard', 'DasboardController@index')->name('dasboard');
         Route::resource('categories', CategoriesController::class);
-    // attributes
-        Route::resource('attributes',AttributesController ::class);
-        Route::get('attributes/{attributesID}/options', 'AttributesController@option');
-        Route::get('attributes/{attributesID}/add-option', 'AttributesController@add_option');
-        Route::post('attributes/options/{attributesID}', 'AttributesController@store_option');
+        // attributes
+        Route::resource('attributes', AttributesController::class);
+        Route::get(
+            'attributes/{attributesID}/options',
+            'AttributesController@option'
+        )->name('attributes.option');
+        Route::get(
+            'attributes/{attributesID}/add-option',
+            'AttributesController@add_option'
+        );
+        Route::post(
+            'attributes/options/{attributesID}',
+            'AttributesController@store_option'
+        );
 
-            // product
+        // product
 
         Route::resource('product', productController::class);
         Route::get('product/{productID}/images', 'ProductController@images');
@@ -46,7 +55,6 @@ Route::group(
             'ProductController@remove_images'
         )->name('product.remove_images');
     }
-
 );
 
 Auth::routes();

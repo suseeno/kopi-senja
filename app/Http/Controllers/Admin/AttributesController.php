@@ -28,7 +28,9 @@ class AttributesController extends Controller
      */
     public function index()
     {
-        $this->data['attributes'] = Attribute::orderBy('name', 'ASC')->paginate(10);
+        $this->data['attributes'] = Attribute::orderBy('name', 'ASC')->paginate(
+            10
+        );
 
         return view('admin.attribute.index', $this->data);
     }
@@ -41,7 +43,7 @@ class AttributesController extends Controller
     public function create()
     {
         $this->data['attribute'] = null;
-        
+
         return view('admin.attribute.form', $this->data);
     }
 
@@ -88,7 +90,7 @@ class AttributesController extends Controller
         $attribute = Attribute::findOrFail($id);
 
         $this->data['attribute'] = $attribute;
-        
+
         return view('admin.attribute.form', $this->data);
     }
 
@@ -143,7 +145,7 @@ class AttributesController extends Controller
         }
 
         $attribute = Attribute::findOrFail($attributeID);
-        $this->data['attribute'] = $attribute;
+        $this->data['attributes'] = $attribute;
 
         return view('admin.attribute.options', $this->data);
     }
@@ -153,7 +155,7 @@ class AttributesController extends Controller
         if (empty($attributeID)) {
             return redirect('admin/attributes');
         }
-        
+
         $params = [
             'attributes_id' => $attributeID,
             'name' => $request->get('name'),
@@ -163,9 +165,8 @@ class AttributesController extends Controller
             Session::flash('success', 'option has been saved');
         }
 
-        return redirect('admin/attributes/'. $attributeID .'/options');
+        return redirect('admin/attributes/' . $attributeID . '/options');
     }
-
     public function edit_option($optionID)
     {
         $option = AttributesOption::findOrFail($optionID);
@@ -185,7 +186,9 @@ class AttributesController extends Controller
             Session::flash('success', 'Option has been updated');
         }
 
-        return redirect('admin/attributes/'. $option->attribute->id .'/options');
+        return redirect(
+            'admin/attributes/' . $option->attribute->id . '/options'
+        );
     }
 
     public function remove_option($optionID)
@@ -200,6 +203,8 @@ class AttributesController extends Controller
             Session::flash('success', 'option has been deleted');
         }
 
-        return redirect('admin/attributes/'. $option->attribute->id .'/options');
+        return redirect(
+            'admin/attributes/' . $option->attribute->id . '/options'
+        );
     }
 }

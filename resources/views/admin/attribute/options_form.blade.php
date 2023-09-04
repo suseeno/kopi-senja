@@ -8,9 +8,9 @@
             {!! Form::model($attributesOption, ['url' => ['admin/attributes/options', $attributesOption->id], 'method' => 'PUT']) !!}
             {!! Form::hidden('id') !!}
         @else
-            {!! Form::open(['url' => ['admin/attributes/options', $attribute->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
+            {!! Form::open(['url' => ['admin/attributes/options', $attributes->id], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
         @endif
-        {!! Form::hidden('attribute_id', $attribute->id) !!}
+        {!! Form::hidden('attributes_id', $attributes->id) !!}
         <div class="form-group">
             {!! Form::label('name', 'Name') !!}
             {!! Form::text('name', null, ['class' => 'form-control']) !!}

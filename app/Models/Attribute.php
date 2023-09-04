@@ -47,6 +47,6 @@ class Attribute extends Model
     }
     public function attributesOptions()
     {
-        return $this->belongsTo('App\Models\AttributesOption');
+        return $this->hasMany('App\Models\AttributesOption');
     }
 }

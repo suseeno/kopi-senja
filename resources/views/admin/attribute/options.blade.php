@@ -1,4 +1,4 @@
-@extends('admin.layout')
+@extends('admin.layouts.layout')
 
 @section('content')
     <div class="content">
@@ -9,17 +9,19 @@
             <div class="col-lg-7">
                 <div class="card card-default">
                     <div class="card-header card-header-border-bottom">
-                        <h2>Options for : {{ $attribute->name }}</h2>
+                        <h2>Options for : {{ $attributes->name }}</h2>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered table-stripped">
                             <thead>
-                                <th style="width:10%">Id</th>
+                                <th style="width:10%">#</th>
                                 <th>Name</th>
                                 <th style="width:30%">Action</th>
                             </thead>
                             <tbody>
-                                @foreach ($attribute->attributesOption as $option)
+
+
+                                @foreach($attributes->attributesOptions as $option)
                                     <tr>    
                                         <td>{{ $option->id }}</td>
                                         <td>{{ $option->name }}</td>
@@ -31,7 +33,6 @@
                                             {!! Form::close() !!}
                                         </td>
                                     </tr>
-                               
                                 @endforeach
                             </tbody>
                         </table>

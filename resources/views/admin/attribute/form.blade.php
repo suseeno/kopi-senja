@@ -39,7 +39,7 @@
                                             {!! Form::select('type', $types , null, ['class' => 'form-control', 'placeholder' => '-- Set Type --', 'readonly' => $disableInput]) !!}
                                     </div>
                                 </div>
-                            </div>
+                            </div> 
                         </fieldset>
                         <fieldset class="form-group">
                             <div class="row">
